@@ -13,9 +13,32 @@ const swaggerDocument = YAML.parse(file)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
+let courses = [
+    {
+        id: "11",
+        name: "Learn Reactjs",
+        price: 299
+    },
+    {
+        id: "22",
+        name: "Learn Angular",
+        price: 399
+    },
+    {
+        id: "33",
+        name: "Learn Django",
+        price: 499
+    },
+]
+
 
 
 app.get("/", (req,res) => {
+    res.send("Hello From Backend!")
+})
+
+
+app.get("/api/v1", (req,res) => {
     res.send("Hello From Backend!")
 })
 
