@@ -38,8 +38,21 @@ app.get("/", (req,res) => {
 })
 
 
-app.get("/api/v1", (req,res) => {
-    res.send("Hello From Backend!")
+app.get("/api/v1/lco", (req,res) => {
+    res.send("Hello From lco docs!")
+})
+
+app.get("/api/v1/lcoobject", (req,res) => {
+    res.send({id: "55", name: "Learn Backend", price: 999});
+})
+
+app.get("/api/v1/courses", (req,res) => {
+    res.send(courses);
+})
+
+app.get("/api/v1/mycourse/:courseId", (req,res) => {
+    const myCourse = courses.find(course => course.id === req.params.courseId);
+    res.send(myCourse);
 })
 
 
