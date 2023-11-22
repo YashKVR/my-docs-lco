@@ -11,6 +11,7 @@ const file  = fs.readFileSync('./swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(express.json());
 
 
 let courses = [
@@ -55,6 +56,11 @@ app.get("/api/v1/mycourse/:courseId", (req,res) => {
     res.send(myCourse);
 })
 
+app.post('/api/v1/addCourse',(req,res) => {
+    console.log(req.body);
+    courses.push(req.body);
+    res.send(true);
+})
 
 app.listen(4000, () => {
     console.log(`Server is running at PORT: 4000...`);
