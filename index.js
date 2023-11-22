@@ -9,10 +9,12 @@ const YAML = require('yaml')
 
 const file  = fs.readFileSync('./swagger.yaml', 'utf8')
 const swaggerDocument = YAML.parse(file)
+const fileUpload = require('express-fileupload');
+const { log } = require('console');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(express.json());
-
+app.use(fileUpload());
 
 let courses = [
     {
@@ -62,11 +64,12 @@ app.post('/api/v1/addCourse',(req,res) => {
     res.send(true);
 })
 
-app.get('/api/v1/coursequery',(req,res) => {
-    let location = req.query.location;
-    let device = req.query.device;
+app.post('/api/v1/courseupload',(req,res) => {
+    console.log(req.headers);
+    const file = req.files.file
+    let path = __dirname + "/images/" + Date.now() + ".jpg"
 
-    res.send({location, device});
+    file.mv(path,(err)=>{res.send(true)});
 })
 
 app.listen(4000, () => {
